@@ -1,0 +1,22 @@
+-- PharmaFlow Database Schema
+
+-- Users Table
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255),
+    google_id VARCHAR(255),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Medicines Table
+CREATE TABLE IF NOT EXISTS medicines (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    name VARCHAR(255) NOT NULL,
+    quantity INTEGER NOT NULL DEFAULT 0,
+    min_stock INTEGER NOT NULL DEFAULT 10,
+    expiry_date DATE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
